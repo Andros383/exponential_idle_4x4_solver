@@ -176,41 +176,12 @@ fn main() {
     loop {
         println!("{}", progress);
         progress += 1;
-        // print!("{:?}\n\n\n{:?}", bakancslista, done_boards);
-        current_state = match bakancslista
+        print!("{:?}\n\n\n{:?}", bakancslista, done_boards);
+        current_state = bakancslista
             .iter()
             .filter(|x| !done_boards.contains(&x.board)) //Ez lehet hogy lassú
             .min()
-        {
-            Some(s) => s,
-            None => {
-                // let mut bakancs_map: HashSet<[[i32; BOARD_SIZE]; BOARD_SIZE]> = HashSet::new();
-                // let mut done_map: HashSet<[[i32; BOARD_SIZE]; BOARD_SIZE]> = HashSet::new();
-                // for elem in &bakancslista {
-                //     bakancs_map.insert(elem.board);
-                // }
-                // for elem in &done_boards {
-                //     done_map.insert(*elem);
-                // }
-
-                // println!(
-                //     "Bakancslista size: {}, Done_boards size: {}",
-                //     bakancs_map.len(),
-                //     done_map.len()
-                // );
-
-                // println!("Done boards");
-                // for b in done_boards {
-                //     println!("{:?}", b);
-                // }
-                // println!("Bakancslista");
-                // for s in bakancslista {
-                //     println!("{:?}", s);
-                // }
-
-                panic!("No solution exists!");
-            }
-        };
+            .expect("No solution found.");
 
         done_boards.push(current_state.board);
         if current_state.board == sv {
@@ -236,21 +207,6 @@ fn main() {
                 path: new_vec,
             });
         }
-        // print!("\n\n\n");
-
-        // println!("Newly added boards:");
-        // for b in &to_push_vec {
-        //     println!("{:?}", b.board);
-        // }
-        // println!("Done boards");
-        // for b in &done_boards {
-        //     println!("{:?}", b);
-        // }
-        // // println!("Bakancslista");
-        // // for s in &bakancslista {
-        // //     println!("{:?}", s);
-        // // }
-        // print!("\n\n\n");
         bakancslista.append(&mut to_push_vec);
     }
     println!(
